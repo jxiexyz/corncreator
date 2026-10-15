@@ -5,20 +5,20 @@ enabled: true
 owner: personal-creative-vault
 mode: task
 schedule:
-  kind: daily
+  kind: cron
+  cron: "0 3,8 * * *"
   timezone: America/New_York
-  time: 02:00:00
-timeout_secs: 3600
+timeout_secs: 5400
 metadata:
   presentation_locale: en-US
 ---
-# Task: Generate 1 Daily Cozy Anime Short (Pipeline v4.3)
+# Task: Generate Daily Cozy Anime Short (Pipeline v4.3)
 
 Execute ONE full animation following the pipeline specification: `/home/hatch/workspace/user/files/anime-shorts-pipeline-full_0_1heh.md` — PART 1 only (PART 2 addendum is proposed, do not use).
 
 ## Context
 - User: Creator of vertical 9:16 aesthetic anime shorts. Casual, friendly tone.
-- Daily scheduled run. Check `/home/hatch/workspace/anime-shorts/used-themes.md` first for historical themes and the most recent DAY/NIGHT selections.
+- Scheduled run (2x daily: 03:00 and 08:00 America/New_York). Check `/home/hatch/workspace/anime-shorts/used-themes.md` first for historical themes and the most recent DAY/NIGHT selections.
 
 ## Assets (Existing — Do Not Regenerate)
 - Character Reference: `/home/hatch/workspace/anime-shorts/main-character.png` — use as image-to-video reference across ALL clips.
@@ -27,6 +27,12 @@ Execute ONE full animation following the pipeline specification: `/home/hatch/wo
 - Tools: `ffmpeg` + `ffprobe` available at `/usr/bin`.
 
 ## Core Directives
+0. Execution Jitter (Organic Timing): Before starting ideation or generating assets, execute a random jitter delay of 3 to 12 minutes (180 to 720 seconds) in bash:
+   ```bash
+   sleep $(shuf -i 180-720 -n 1)
+   ```
+   This ensures each automated run initiates at natural, non-identical timestamps.
+
 1. DAY/NIGHT: Alternate randomly per run, but never pick the same lighting 3 times in a row (check `used-themes.md`).
 2. Ideation: Follow the "Ideation engine — LOCKED as permanent Stage 1" rules + "LIVED-IN VARIETY" principles: anti-generic, specific location, micro-activities, environmental interaction, and camera framing distinct from past logged entries. Append new theme to `used-themes.md`.
 3. Format: 2 clips x 10 seconds = 20 seconds total. NO cuts within a clip — each clip is ONE continuous static shot, full cozy view. The only transition cut occurs between clip 1 and clip 2 during final stitching.
