@@ -12,38 +12,38 @@ timeout_secs: 3600
 metadata:
   presentation_locale: en-US
 ---
-# Tugas: generate 1 film anime Shorts harian (pipeline v4.3)
+# Task: Generate 1 Daily Cozy Anime Short (Pipeline v4.3)
 
-Jalankan SATU film penuh mengikuti dokumen pipeline: /home/hatch/workspace/user/files/anime-shorts-pipeline-full_0_1heh.md — BAGIAN 1 saja (addendum BAGIAN 2 masih proposed, jangan dipakai).
+Execute ONE full animation following the pipeline specification: `/home/hatch/workspace/user/files/anime-shorts-pipeline-full_0_1heh.md` — PART 1 only (PART 2 addendum is proposed, do not use).
 
-## Konteks
-- User: udin, penikmat dan kolektor anime Shorts vertikal 9:16. Bahasa laporan: casual Indonesian (lu/gue).
-- Ini run terjadwal harian. Cek /home/hatch/workspace/anime-shorts/used-themes.md dulu untuk riwayat tema dan pilihan DAY/NIGHT terakhir.
+## Context
+- User: Creator of vertical 9:16 aesthetic anime shorts. Casual, friendly tone.
+- Daily scheduled run. Check `/home/hatch/workspace/anime-shorts/used-themes.md` first for historical themes and the most recent DAY/NIGHT selections.
 
-## Aset (sudah ada, jangan generate ulang)
-- Character ref: /home/hatch/workspace/anime-shorts/main-character.png — pakai sebagai image-to-video reference di SEMUA clip.
-- Aesthetic refs: /home/hatch/workspace/anime-shorts/ref-cozy-night.png, ref-cozy-day.png, ref-cozy-stream.png — jadikan acuan gaya start-frame.
-- BGM: /home/hatch/workspace/anime-shorts/bgm.mp3.
-- ffmpeg + ffprobe tersedia di /usr/bin.
+## Assets (Existing — Do Not Regenerate)
+- Character Reference: `/home/hatch/workspace/anime-shorts/main-character.png` — use as image-to-video reference across ALL clips.
+- Aesthetic References: `/home/hatch/workspace/anime-shorts/ref-cozy-night.png`, `ref-cozy-day.png`, `ref-cozy-stream.png` — use as reference for start-frame artistic style.
+- Audio: `/home/hatch/workspace/anime-shorts/bgm.mp3`.
+- Tools: `ffmpeg` + `ffprobe` available at `/usr/bin`.
 
-## Aturan keras
-1. DAY/NIGHT: pilih random per run, tapi jangan sama 3x berturut-turut (cek used-themes.md).
-2. Ideation: ikuti blok "Ideation engine — LOCKED as permanent Stage 1" di Stage 1 + aturan "LIVED-IN VARIETY" — anti generik: lokasi spesifik + aktivitas mikro yang nyambung + interaksi lingkungan + komposisi kamera beda dari semua tema yang ke-log. Tema baru dilarang mirip yang sudah ada; append tema ke used-themes.md.
-3. Format: 2 klip x 10 detik = 20 detik. TIDAK ADA cut di dalam klip — tiap klip SATU shot statis kontinu, full cozy view. Satu-satunya cut adalah antara clip 1 dan clip 2 (waktu stitch).
-4. Kamera: pakai frasa "CAMERA LOCKED ON A TRIPOD — completely static, absolutely zero camera movement: no pan, no tilt, no zoom, no drift, no tracking, no push-in, no pull-back. The viewpoint is FROZEN — every background element stays pixel-locked in the exact same position from the first frame to the last; only the living world moves."
-5. QC WAJIB per clip: extract frame t=1s dan t=9s, LIHAT langsung dan bandingkan komposisinya. Kalau kamera geser/zoom/morphing, regenerate clip itu (maks 1 regen per clip).
-6. Style matching (Stage 2): brief wajahnya "narrow expressive brown eyes (not big round moe eyes), gentle closed-lip smile, vivid and lively anime face" — identitas tetap dari main-character.png (rambut messy bun, face-framing strands, oversized black sweatshirt).
-7. Dia kecil di frame; NO fireflies di prompt apapun; no dialogue (ambient sound only); vertikal 9:16; style bible + lighting + cozy verbatim sesuai pick day/night.
-8. Batas generate: maks 2 video untuk film + maks 1 regen per clip bila QC gagal (total maks 4). Kalau kena error sementara, retry sekali; kalau masih gagal, stop dan laporkan apa adanya.
-9. Stage 4B: mix bgm.mp3 dengan volume 0.2 ke film FINAL saja (perintah verbatim dari dokumen); verifikasi durasi ~20 detik via ffprobe + audio stream ada.
-10. Stage 4C (cloud archive sync): SETELAH film final jadi dan terverifikasi, kirim salinan arsip HANYA file final mp4 dengan perintah:
+## Core Directives
+1. DAY/NIGHT: Alternate randomly per run, but never pick the same lighting 3 times in a row (check `used-themes.md`).
+2. Ideation: Follow the "Ideation engine — LOCKED as permanent Stage 1" rules + "LIVED-IN VARIETY" principles: anti-generic, specific location, micro-activities, environmental interaction, and camera framing distinct from past logged entries. Append new theme to `used-themes.md`.
+3. Format: 2 clips x 10 seconds = 20 seconds total. NO cuts within a clip — each clip is ONE continuous static shot, full cozy view. The only transition cut occurs between clip 1 and clip 2 during final stitching.
+4. Camera: Use the verbatim prompt: "CAMERA LOCKED ON A TRIPOD — completely static, absolutely zero camera movement: no pan, no tilt, no zoom, no drift, no tracking, no push-in, no pull-back. The viewpoint is FROZEN — every background element stays pixel-locked in the exact same position from the first frame to the last; only the living world moves."
+5. Mandatory QC per clip: Extract frames at t=1s and t=9s, visually inspect and compare composition. If camera drifts, zooms, or morphs, regenerate that clip (maximum 1 regeneration per clip).
+6. Style Matching (Stage 2): Brief facial features as "narrow expressive brown eyes (not big round moe eyes), gentle closed-lip smile, vivid and lively anime face" — preserve character identity from `main-character.png` (messy bun hairstyle, face-framing strands, oversized black sweatshirt).
+7. Character placement: Small in frame; NO fireflies in any prompt; no spoken dialogue (ambient environmental sound only); vertical 9:16 aspect ratio; style bible, lighting, and cozy mood strictly matched to DAY or NIGHT pick.
+8. Generation limits: Maximum 2 video generations for the film + maximum 1 regeneration per clip if QC fails (maximum 4 total). If a transient error occurs, retry once; if it persists, stop gracefully and report the outcome.
+9. Stage 4B: Mix `bgm.mp3` with volume 0.2 into the FINAL film only; verify duration is ~20 seconds with `ffprobe` and ensure the audio stream exists.
+10. Stage 4C (Cloud Archive Sync): AFTER the final film is assembled and verified, upload ONLY the final mp4 to the archive endpoint:
    ```bash
-   curl -s --max-time 180 -X POST https://momoai.fun/upload -F "video=@<final-mp4>" -F "caption=<caption Inggris + hashtag film ini>"
+   curl -s --max-time 180 -X POST https://momoai.fun/upload -F "video=@<final-mp4>" -F "caption=<English poetic caption + hashtags>"
    ```
-   JANGAN upload klip mentah atau start frame. Jika respons berisi "status":"success", HAPUS file final mp4 lokal (hanya file itu — klip, start frame, dan folder run tetap disimpan). Jika gagal/tidak ada status success, simpan file lokal, catat di laporan, retry maksimal sekali.
+   Do NOT upload raw clips or start frames. If the server response contains `"status":"success"`, DELETE the local final mp4 file (only that file — raw clips, start frames, and run directories remain saved). If the upload fails or does not return success, keep the local file, record the event in the report, and retry at most once.
 
-## Laporan ke chat utama
-- Judul film, deskripsi 1 baris per clip, hasil QC per clip, hasil sync arsip (sukses/gagal + respons server), deviasi dari pipeline kalau ada.
-- Caption ENGLISH singkat puitis + 3-5 hashtag dalam code block polos (tanpa apostrof).
-- Catatan: kalau sync Stage 4C sukses, file final lokal sudah dihapus sesuai aturan — sampaikan itu di laporan, tidak perlu melampirkan file.
-- Bahasa: casual Indonesian lu/gue.
+## Report Format
+- Film Title, 1-line description per clip, QC verdict per clip, archive sync result (success/failure + server response), and pipeline deviations if any.
+- Poetic ENGLISH caption + 3-5 relevant hashtags in a plain code block (no apostrophes).
+- Note: If Stage 4C archive sync succeeds, state that the local final file was cleaned up per guidelines — no need to attach the video file in chat.
+- Language: Casual, friendly tone.
