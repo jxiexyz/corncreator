@@ -6,7 +6,7 @@ owner: personal-creative-vault
 mode: task
 schedule:
   kind: cron
-  cron: "0 3,8 * * *"
+  cron: "0 1,8,19 * * *"
   timezone: America/New_York
 timeout_secs: 5400
 metadata:
@@ -18,7 +18,7 @@ Execute ONE full animation following the pipeline specification: `/home/hatch/wo
 
 ## Context
 - User: Creator of vertical 9:16 aesthetic anime shorts. Casual, friendly tone.
-- Scheduled run (2x daily: 03:00 and 08:00 America/New_York). Check `/home/hatch/workspace/anime-shorts/used-themes.md` first for historical themes and the most recent DAY/NIGHT selections.
+- Scheduled run (3x daily: 01:00, 08:00, and 19:00 America/New_York). Check `/home/hatch/workspace/anime-shorts/used-themes.md` first for historical themes and the most recent DAY/NIGHT selections.
 
 ## Assets (Existing — Do Not Regenerate)
 - Character Reference: `/home/hatch/workspace/anime-shorts/main-character.png` — use as image-to-video reference across ALL clips.
