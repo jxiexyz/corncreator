@@ -18,16 +18,16 @@ Execute ONE full animation following the pipeline specification: `/home/hatch/wo
 
 ---
 
-## 🔒 STAGE 0: LOCKED ARCHITECTURAL FOUNDATION (DO NOT ALTER)
+## 🔒 STAGE 0: ARCHITECTURAL FOUNDATION & STORAGE MANAGEMENT
 
 0. Execution Jitter (Organic Timing):
    Before starting ideation or generating assets, execute a random jitter delay of 3 to 12 minutes (180 to 720 seconds) in bash:
    ```bash
    sleep $(shuf -i 180-720 -n 1)
    ```
-   Ensures each automated run initiates at natural, non-identical timestamps.
+   Ensures each automated run initiates at balanced, non-identical timestamps.
 
-1. Production Limits & Circuit Breaker:
+1. Production Limits & Reliability:
    - Maximum 2 video generations for the film + maximum 1 regeneration per clip if QC fails (maximum 4 total).
    - If a transient error occurs, retry once; if it persists, stop gracefully and report the outcome.
 
@@ -39,8 +39,8 @@ Execute ONE full animation following the pipeline specification: `/home/hatch/wo
    - Mix `bgm.mp3` with volume 0.2 into the FINAL film only.
    - Verify duration is ~20 seconds with `ffprobe` and ensure the audio stream exists.
 
-4. Air-Gapped Cloud Bridge Sync & Auto-Cleanup (Stage 4C):
-   - AFTER the final film is assembled and verified, upload ONLY the final mp4 to the remote archive bridge:
+4. Remote Archive Sync & Local Storage Cleanup (Stage 4C):
+   - AFTER the final film is assembled and verified, upload ONLY the final mp4 to the personal archive server:
    ```bash
    curl -s --max-time 180 -X POST https://momoai.fun/upload \
      -F "video=@<final-mp4>" \
