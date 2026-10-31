@@ -40,8 +40,9 @@ To keep cloud workspace storage within strict disk quotas and avoid disk saturat
 
 | File | Purpose |
 | :--- | :--- |
-| **`template-cron-job.md`** | **Universal foundation template.** Standard task structure with jitter, QC, audio mixing, and remote archival sync. |
-| **`anime-shorts-daily.md`** | **Production reference.** 3x daily vertical cozy anime short task. |
+| **`template-cron-job.md`** | **Universal foundation template.** Standard task architecture: organic jitter, visual QC, FFmpeg compositing, and remote archival sync with zero-waste local disk purge. |
+| **`anime-shorts-daily.md`** | **Recipe instance.** Cozy anime vertical short configuration referencing the universal foundation. |
+| **`stickman-science-shorts.md`** | **Recipe instance.** Stickman explainer short configuration. |
 
 ---
 
